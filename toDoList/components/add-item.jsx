@@ -3,10 +3,11 @@ import { StyleSheet, View,TextInput,Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 
-const AddItem = () => {
+const AddItem = ({onTodoAdd}) => {
     const [title,setTitle]=useState('');
     const [errorValidaion,setError]=useState('');
-    const handleText=(val)=>{setTitle(val);
+    const handleText=(val)=>{
+        setTitle(val);
     };
     const handleAddTDo=()=>{
         if (title.length===0) {
@@ -14,13 +15,19 @@ const AddItem = () => {
             
         }
         else if (title.length<3) {
-            setError("min characters must be 3");
-            
+            setError("min characters must be 3");          
         }
         else{ 
         setError('');
+        const todo = {
+            id:1000,
+            title,
+            done:false
+        }
+        onTodoAdd(todo);
         setTitle('');
         }
+        
 
     };
     return (
